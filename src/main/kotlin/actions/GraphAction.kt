@@ -9,7 +9,7 @@ import util.printMatrix
 
 object GraphAction {
     fun addFromUserInput() {
-        println("Enter matrix type (1 - adjacency, 2 - incidence):")
+        println("Введіть тип матриці (1 - суміжності, 2 - інцидентності):")
         when (readLine()!!) {
             "1" -> {
                 val inputMatrix = readMatrix()
@@ -20,7 +20,7 @@ object GraphAction {
                 State.currentGraph = incMatrixToGraph(inputMatrix)
             }
             else -> {
-                println("Wrong matrix type. Returning to main menu...")
+                println("Неправильний номер типу матриці. Повертаємось до головного меню...")
                 return
             }
         }
@@ -29,10 +29,10 @@ object GraphAction {
     }
 
     fun addVertex() {
-        println("Enter the vertex id:")
+        println("Введіть індентифікатор вершини:")
         val id = readLine()!!
         State.currentGraph.addVertex(id)
-        println("The vertex has been added")
+        println("Вершина додана")
     }
 
     fun printDistanceMatrix() {
@@ -41,7 +41,7 @@ object GraphAction {
     }
 
     fun generateGraph() {
-        println("Enter number of vertices, edges and graph type (0-undirected, 1-directed) Example: 6 8 1")
+        println("Введіть кількість вершни, ребер, та тип графу (0-неорієнтований, 1-орієнтований). Приклад: 6 8 1")
         val input = readLine()!!
         val data = input.split(" ")
         if (data.size == 3) {
@@ -49,24 +49,24 @@ object GraphAction {
             println()
             println(State.currentGraph)
         } else {
-            println("Wrong format of settings. Need: vertices edges type. Returning to main menu...")
+            println("Невірно задано граф. Потрібно в такому порядку: вершини ребра тип-графу. Повертаємось до головного меню...")
             return
         }
     }
 
     fun inputSourceDest() {
-        println("Input id of a source vertex: ")
+        println("Введіть індентифікатор початкової вершини: ")
         val sourceId = readLine()!!
         State.currentGraph.setSourceDest(sourceId, true)
-        println("Input id of a destination vertex: ")
+        println("Введіть ідентифікатор кінцевої вершини: ")
         val destId = readLine()!!
         State.currentGraph.setSourceDest(destId, false)
-        println("Source and Dest vertices have been set")
+        println("Початкова та кінцева вершини виставлені.")
     }
 
     fun calcPathTerry() {
         val path = State.currentGraph.dfsIterative(State.currentGraph.getSource()!!, State.currentGraph.getDest()!!)
-        println("Result of the Terry algorithm:")
+        println("Результат виконання алгоритму Террі:")
         path.forEach {
             if (path.last() == it) print("${it.id} ") else print("${it.id} -> ")
         }

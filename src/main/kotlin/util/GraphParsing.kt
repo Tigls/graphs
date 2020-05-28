@@ -4,10 +4,10 @@ import graph.*
 
 object GraphParsing {
     fun readMatrix(): Array<IntArray> {
-        println("How big is the matrix NxM, where N - number of rows, M - number of columns")
+        println("Задайте розмір матриці NxM, де N - кількість рядків, M - кількість стовпчиків")
         val size = readLine()!!.split("x")
         val rows = size[0].toInt()
-        val cols = size[2].toInt()
+        val cols = size[1].toInt()
         val matrix: Array<IntArray> = Array(rows){ IntArray(cols) {0} }
         for (i in 0 until rows) {
             val row = readLine()!!.split(" ")
@@ -66,7 +66,7 @@ object GraphParsing {
                     graph.addEdge(second.key.toString(), first.key.toString())
                 }
                 else -> {
-                    println("Wrong values in incidence matrix. Empty graph created.")
+                    println("Невірні значення в матриці інцидентності. Створено пустий граф.")
                     return Graph.createEmpty()
                 }
             }

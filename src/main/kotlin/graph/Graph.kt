@@ -89,6 +89,7 @@ class Graph (
         return this.dest
     }
 
+    // генерація матриці відстаней, запускає пошук в ширину для кожної вершини
     fun distanceMatrix(): Array<FloatArray> {
         val size = vertices.size
         val distanceMatrix = Array (size){ FloatArray (size) {Float.POSITIVE_INFINITY} }
@@ -103,6 +104,7 @@ class Graph (
         return distanceMatrix
     }
 
+    // алгоритм пошуку в ширину, breadth first search або bfs
     private fun bfs(initialVertex: Vertex): Map<Vertex, Float> {
         val explored = mutableSetOf(initialVertex)
         val queue: Queue<Vertex> = LinkedList(explored)
@@ -160,9 +162,9 @@ class Graph (
 
     override fun toString(): String {
         val strBuilder = StringBuilder()
-        strBuilder.appendln("Number of vertices: ${vertices.size}")
-        strBuilder.appendln("Number of edges: ${edges.size}")
-        strBuilder.appendln("Graph adj list:")
+        strBuilder.appendln("Кількість вершин: ${vertices.size}")
+        strBuilder.appendln("Кількість ребер: ${edges.size}")
+        strBuilder.appendln("Список суміжності графу:")
         for (adjElem in adjList.entries.sortedBy { it.key.id }) {
             strBuilder.append("${adjElem.key.id}:")
             for (connectedVertex in adjElem.value) {

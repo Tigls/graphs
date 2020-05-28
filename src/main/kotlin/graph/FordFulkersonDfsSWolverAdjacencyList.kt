@@ -12,24 +12,21 @@ import INF
  *
  */
 class FordFulkersonDfsSolverAdjacencyList (n: Int, s: Int, t: Int) : NetworkFlowSolverBase(n, s, t) {
-    // Performs the Ford-Fulkerson method applying a depth first search as
-    // a means of finding an augmenting path.
+    // для пошуку аугментованого шляху використовується пошук в глибину
     override fun solve() {
-
-        // Find max flow by adding all augmenting path flows.
+        // пошук макс потоку додаванням усіх аугментованих шляхів
         var f = dfs(s, INF)
         while (f != 0L) {
             markAllNodesAsUnvisited()
             maxFlow += f
             f = dfs(s, INF)
         }
-
-        // Find min cut.
+        // пошук мінімального розрізу
         for (i in 0 until n) if (visited(i)) minCut[i] = true
     }
 
     private fun dfs(node: Int, flow: Long): Long {
-        // At sink node, return augmented path flow.
+        // коли долягаємо стоку, функція вертає аугментований шлях
         if (node == t) return flow
         val edges: MutableList<Edge?>? = graph[node]
         visit(node)
@@ -37,8 +34,7 @@ class FordFulkersonDfsSolverAdjacencyList (n: Int, s: Int, t: Int) : NetworkFlow
             val rcap = edge!!.remainingCapacity()
             if (rcap > 0 && !visited(edge.to)) {
                 val bottleNeck = dfs(edge.to, Math.min(flow, rcap))
-
-                // Augment flow with bottle neck value
+                // доповнення потоку обмеженим занченням знайденим пошуком в глибину
                 if (bottleNeck > 0) {
                     edge.augment(bottleNeck)
                     return bottleNeck
