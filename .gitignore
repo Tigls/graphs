@@ -3,6 +3,7 @@
 .idea/
 out/
 build/
+.gradle
 
 ### Kotlin ###
 # Compiled class file
